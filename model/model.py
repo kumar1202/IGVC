@@ -24,7 +24,6 @@ class driver_model(nn.Module):
 
 	def __init__(self):
 		super(driver_model, self).__init__()
-		#Normalization layer
 		self.conv1 = nn.Conv2d(1,24,5,2)
 		self.conv2 = nn.Conv2d(24,36,5,2)
 		self.conv3 = nn.Conv2d(36,48,5,2)
@@ -36,6 +35,7 @@ class driver_model(nn.Module):
 		self.fc4 = nn.Linear(10,1)
 
 	def forward(self,x):
+		x = (x/127.5)-1.0
 		x = F.elu(self.conv1(x))
 		x = F.elu(self.conv2(x))
 		x = F.elu(self.conv3(x))
@@ -47,7 +47,7 @@ class driver_model(nn.Module):
 		return x
 
 	def num_flat_features(self, x):
-        size = x.size()[1:]  # all dimensions except the batch dimension
+        size = x.size()[1:]
         num_features = 1
         for s in size:
             num_features *= s
