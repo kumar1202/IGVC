@@ -20,7 +20,7 @@ class driver_model(nn.Module):
     the fully connected layer for predicting the steering angle.
     dropout avoids overfitting
     ELU(Exponential linear unit) function takes care of the Vanishing gradient problem. 
-    """
+    	"""
 
 	def __init__(self):
 		super(driver_model, self).__init__()
@@ -44,18 +44,21 @@ class driver_model(nn.Module):
 		x = F.elu(self.fc1(x))
 		x = F.elu(self.fc2(x))
 		x = F.elu(self.fc3(x))
+		x = F.elu(self.fc4(x))
 		return x
-
+	
 	def num_flat_features(self, x):
-        size = x.size()[1:]
-        num_features = 1
-        for s in size:
-            num_features *= s
-        return num_features
+	        size = x.size()[1:]  
+	        num_features = 1
+	        for s in size:
+	            num_features *= s
+	        return num_features
+	
+
 
 if __name__ == "__main__":
 
-	net = Net()
+	net = driver_model()
 	print(net)
 
 
